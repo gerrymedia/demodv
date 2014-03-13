@@ -16,7 +16,7 @@ class Controller {
         public static function getImages() {
             $getAllImages = new DBQuery();
             // we'll pass SQL query parameters to the class' query() method
-            $images_collection = $getAllImages->query("SELECT * FROM images LIMIT 0, 30", "multiple");
+            $images_collection = $getAllImages->query("SELECT id FROM images LIMIT 0, 30", "multiple");
             // finally let's return the $rows array
 
             return $images_collection;

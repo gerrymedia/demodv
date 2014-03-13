@@ -1,18 +1,29 @@
 <?php
 
 /**
- * Create to display images, but this class might not be used at all
+ *  
+ * Other useful methods would be createImage(), deleteImage()
  * @author Gerald
  */
 class Image {
-     
-   function __construct() {
-        //debug: echo "Image class loaded";
-    }
+  
+    public function getIds($images) {
+        
+         $idsArray = array();
+        
+        foreach ($images as $key => $value) {
+            $idsArray[] = $value;
+            
+            if (is_array($images[$value])) {
+              
+                     $idsArray = array_merge($idsArray,$this->getIds($images[$value]));
+                
+            }
+        
+        }
+        return $idsArray;
     
-    public function displayImages() {
-        
-        print "";
-        
-    }
+   }
+ 
+    
 }

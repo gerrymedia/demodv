@@ -12,11 +12,13 @@
 	<meta charset=utf-8 />
 	<title>Demo - Code Test for D__lyV___ce</title>
 	<link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/ajax.js"></script>
 	<!--[if IE]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 </head>
+
 <body>
 <div class="container">
     
@@ -37,8 +39,8 @@
             <div class="nav" id="prev">
                 <div class="btn-nav-container">
                      <div class="btn-nav">
-                    <?php print '<img src="'.ASSETS_DIR.'/img/btn_left_previous.jpg" width="50" height="50" alt="Previous">'; ?>
-                    </div>
+                         <a href="/?v=no&previous=show" id="btn-prev"></a>
+                      </div>
                 </div>
             </div>
 
@@ -46,7 +48,7 @@
 
                 <div class="image" id="image-id">
                 <span class="helper"></span>
-                
+                  
                 <?php print '<img src="/data/images/'.$singleImage[0]['image'].'" />'; ?>    
                 </div>
                 <div class="voting-widget-container">
@@ -60,10 +62,10 @@
                             ?>
                         </div>
                         <div class="thumbs-up-button">
-                          <?php print '<img src="'.ASSETS_DIR.'/img/btn_thumbs_up.png" alt="Thumbs Up">'; ?>
+                         <a href="/?v=1&id=<?php print $singleImage[0]['id']; ?>" id="btn-thumbup"></a>
                         </div>
                         <div class="thumbs-down-button">
-                           <?php print '<img src="'.ASSETS_DIR.'/img/btn_thumbs_down.png" alt="Thumbs Down">'; ?>
+                            <a href="/?v=0&id=<?php print $singleImage[0]['id']; ?>" id="btn-thumbdown"></a>
                         </div>
                         <div class="thumbs-down-votes">
                             <?php
@@ -77,7 +79,11 @@
             </div><!-- /image-container -->
 
             <div class="nav" id="next">
-                <?php print '<img src="'.ASSETS_DIR.'/img/btn_right_next.jpg" width="50" height="50" alt="Next">'; ?>
+                 <div class="btn-nav-container">
+                     <div class="btn-nav">
+                        <a href="/" id="btn-next"></a>
+                     </div>
+                 </div>    
             </div>
             <br class="clear" />
         </div><!-- /#photo-display .container -->

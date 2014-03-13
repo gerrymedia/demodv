@@ -1,12 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-namespace Rating;
 
 /**
  * Description of RatingClass
@@ -15,4 +8,20 @@ namespace Rating;
  */
 class Rating {
     //put your code here
+    
+    public function recordVote($imageId, $userId, $vote) {
+        
+        $dbQuery = new \DBQuery();
+             
+        $recordVote = $dbQuery->query("INSERT INTO votes (
+                        `id` ,
+                        `user_id` ,
+                        `image_id` ,
+                        `vote` ,
+                        `votedate`
+                        )
+                        VALUES (
+                        NULL , '".$userId."', '".$imageId."', '".$vote."', NOW( )");
+        }
+    
 }

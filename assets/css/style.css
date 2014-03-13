@@ -41,6 +41,10 @@ h1 {
     height:234px; position:relative;
 }
 
+.btn-nav a { 
+    margin-top: 100px;
+}
+
 #prev {
     width: 50px;
     float:left;
@@ -53,6 +57,29 @@ h1 {
     float:left;
     vertical-align: middle;
 }
+
+a#btn-prev {
+    display:block;
+    width:50px;
+    height:50px;
+    background: url(../img/btn_left_previous.jpg) no-repeat;
+}
+
+a#btn-prev:hover {
+    background-position:-1px -1px;
+}
+
+a#btn-next {
+    display:block;
+    width:50px;
+    height:50px;
+    background: url(../img/btn_right_next.jpg) no-repeat;
+}
+
+a#btn-next:hover {
+    background-position:1px 1px;
+}
+
 
 .image-container {
     float: left;
@@ -87,10 +114,84 @@ h1 {
 .thumbs-down-button {
     margin-right: 30px;
 }
+
+a#btn-thumbdown {
+    display:block;
+    height: 53px;
+    width: 53px;
+    background: url(../img/btn_thumbs_down.png) no-repeat;
+}
+a#btn-thumbdown:hover{
+  background-position:1px 1px;
+}
+
+a#btn-thumbup {
+    display:block;
+    height: 53px;
+    width: 53px;
+    background: url(../img/btn_thumbs_up.png) no-repeat;
+}
+a#btn-thumbup:hover{
+  background-position:-1px -1px;
+}
+
 .clear { clear: both; }
 
 .helper {
     display: inline-block;
     height: 100%;
     vertical-align: middle;
+}
+
+.form {
+    width:500px;
+    margin: auto;
+    padding-bottom: 20px;
+}
+
+.form label {
+    font-weight: bold;
+    margin: 5px 0 5px 0;
+    display: inline-block;
+}
+
+.form-input { /* style borrowed from Bootstrap */
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555;
+    vertical-align: middle;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.btn { // style borrowed from Bootstrap
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+/* overrides to borrowed styles */
+
+.form-input {
+    margin-bottom: 10px;
 }

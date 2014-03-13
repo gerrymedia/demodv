@@ -46,6 +46,8 @@ class DBQuery {
           // let's pass the query
           $result = $dbConnection->query($query);
           
+          // in production we should use an exception for db connection error
+          
           // Let's close the connection
           mysqli_close($dbConnection);
           
@@ -60,6 +62,19 @@ class DBQuery {
                 
                  $queryresult =  $array_result;
                 
+                  break;
+                  
+               case "count row":
+                  print "Count row";
+                  print_r($result);
+                  //$numberOfRows = mysql_num_rows($result);
+                  $numberOfRows = 1;
+                  print "Rows found: ".$numberOfRows; 
+                  if ($numberOfRows > 0) // result found
+                  {
+                   $queryresult = $numberOfRows;
+                  }
+
                   break;
               
               case "insert":
