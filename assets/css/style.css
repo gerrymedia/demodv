@@ -1,0 +1,96 @@
+body {
+    background: #f5f5ed;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #999999;
+    
+}
+
+h1 {
+    
+    font-size: 2.8em;
+    font-weight: bold;
+    
+}
+.container {
+    border-top: solid 3px #f01e23;
+    background-color: #ffffff;
+    width: 980px;
+    margin: auto;
+    padding: auto;
+  
+}
+
+#photo-display {
+    width: 625px;
+    margin: auto;
+    padding: auto;
+    text-align: center;
+        
+}
+
+#display-container {
+   
+}
+
+.btn-nav-container {
+    height:50%; margin-bottom:-142px;
+}
+
+.btn-nav {
+    height:234px; position:relative;
+}
+
+#prev {
+    width: 50px;
+    float:left;
+    vertical-align: middle;
+    
+}
+
+#next {
+    width: 50px;
+    float:left;
+    vertical-align: middle;
+}
+
+.image-container {
+    float: left;
+    width:524px;
+    text-align: center;
+}
+
+.voting-widget-container {
+    width: 100%;
+    margin-top: 10px;
+}
+.voting-widget {
+    width:345px; 
+    margin: auto;
+    padding: auto;
+    font-size: 2.8em;
+    font-weight: bold;
+}
+
+.voting-widget div {
+    float: left;
+}
+
+.thumbs-up-votes {
+    margin-right: 30px;
+}
+
+.thumbs-up-button {
+    margin-right: 37px;
+}
+
+.thumbs-down-button {
+    margin-right: 30px;
+}
+.clear { clear: both; }
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
