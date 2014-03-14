@@ -15,6 +15,8 @@ class DBQuery {
   
   public function connect(){
       //The Daily Voice Coding test specified only MySQL
+      // This switch statement will allow us in the future to use other databases
+      
       switch (DATABASE_ENGINE) {
           case "MYSQL":
           
@@ -33,6 +35,7 @@ class DBQuery {
           break;
 
           default:
+              // other databases
               break;
       }
       
@@ -45,11 +48,7 @@ class DBQuery {
           $dbLink = $this->connect();
           // let's pass the query
           
-          if($mode == "insert") {
-              $result = $dbLink->prepare($query);
-          } else {
-              $result = $dbLink->query($query);
-          }
+         $result = $dbLink->query($query);
           
           if(!$result){
                 die('There was an error running the query [' . $dbLink->error . ']');
@@ -65,7 +64,7 @@ class DBQuery {
               case "single": //a query expecting a single row of result
                   
                 $array_result = array();
-                //print_r($result);  
+                 
                 while($row = $result->fetch_array(MYSQLI_ASSOC)) {
                 $array_result[] = $row;
                 }
@@ -78,7 +77,7 @@ class DBQuery {
                 
                 $num_rows = $result->num_rows;
                 
-                //print_r($num_rows);
+              
 
                  $queryresult = $num_rows;
                 
@@ -86,7 +85,7 @@ class DBQuery {
               
               case "insert":
                   
-                  $queryresult  = $mysqli->insert_id; // the vote ID
+                  $queryresult  = $dbLink->insert_id; // the vote ID
                   
 
                   break;

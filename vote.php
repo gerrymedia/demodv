@@ -2,6 +2,7 @@
 session_start();
 /* 
  * vote.php
+ * placeholder for as receiver of an Ajax call
  *  
  */
 
@@ -15,7 +16,11 @@ require_once 'includes/bootstrap.inc';
 // Let's load some configuration
 require_once 'includes/config.inc';
 
+/*
+ * 
 $rating = new Rating();
 $sendVote = $rating->recordVote($imageId, $userId, $vote);
+
+ */
 
 ?>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 /* 
  * Frontpage template, used by the View class
  *
@@ -85,17 +86,18 @@
         </div><!-- /#photo-display .container -->
 <?php
 
-// we might need json for Angular later (single page application)
-$json= json_encode($singleImage);
+// json in case I decide to use Angular (single page application)
+// $json= json_encode($singleImage);
 
-//print "<pre>";
-//print_r($json);
-//print "</pre>";
-print "Next Image:".$nextImageId;
-print "Previous Image:".$previousImageId;
 ?>
     </div><!-- /photo-display -->
 </div><!-- /container -->
+<div id="developer-box">
+<?php if($_SESSION['auth'] == "yes") {
+    print "Developer/Tester Box: You are logged in as User ID: ".$_SESSION['userId'].". You may logout and destroy your session by clicking <a href='logout.php'>here</a>.";
+}
+?>
+</div>
 </body>
 </html>
 

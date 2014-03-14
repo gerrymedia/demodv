@@ -1,3 +1,7 @@
+/*
+* no media queries for this demo
+*/
+
 body {
     background: #f5f5ed;
     font-family: Arial, sans-serif;
@@ -18,7 +22,13 @@ h1 {
     width: 980px;
     margin: auto;
     padding: auto;
+    padding-bottom: 3px;
   
+}
+
+.login-container {
+    margin: 50px;
+    width: 400px;
 }
 
 #photo-display {
@@ -89,8 +99,10 @@ a#btn-next:hover {
 
 .voting-widget-container {
     width: 100%;
-    margin-top: 10px;
+    height: 50px;
+    margin: 10px 0px 20px 0px;
 }
+
 .voting-widget {
     width:345px; 
     margin: auto;
@@ -155,7 +167,7 @@ a#btn-thumbup:hover{
     display: inline-block;
 }
 
-.form-input { /* style borrowed from Bootstrap */
+.form-input { /* form input style borrowed from Bootstrap */
     display: block;
     width: 100%;
     height: 34px;
@@ -174,7 +186,7 @@ a#btn-thumbup:hover{
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
-.btn { // style borrowed from Bootstrap
+.btn { // form button style borrowed from Bootstrap
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -194,4 +206,9 @@ a#btn-thumbup:hover{
 
 .form-input {
     margin-bottom: 10px;
+}
+
+#developer-box {
+    text-align: center;
+    margin-top: 30px;
 }

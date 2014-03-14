@@ -35,8 +35,6 @@ require_once 'includes/config.inc';
            switch ($_GET['do']) {
                case "login":
                     
-               print $_POST['username'];
-               print $_POST['password'];
                $user = new User();
                // for this demo we'll just accept raw input from the form; in production we need to sanitize user input
                $checkUser = $user->loginUser($_POST['username'], $_POST['password']);
@@ -49,12 +47,12 @@ require_once 'includes/config.inc';
                    
                    break;
                
-                case "DA":
+                case "developer":
                    // direct access for devs
                    $_SESSION['auth'] = "yes";
                    $_SESSION['userId'] = $_GET['u'];
                         
-                   include_once INCLUDES_DIR."/_direct_links.inc";
+                   include_once INCLUDES_DIR."/member_welcome.inc";
                    
                    break;
 

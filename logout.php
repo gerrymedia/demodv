@@ -5,4 +5,6 @@ session_start();
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-session_destroy();  
+session_destroy(); 
+
+header("Location: index.php");

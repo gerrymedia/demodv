@@ -16,11 +16,12 @@ class Rating {
         
         $dbQuery = new DBQuery();
         
-        $insertQuery = "INSERT INTO `votes` (`id`, `user_id`, `image_id`, `vote`, `votedate`) VALUES (NULL , '".$userId."', '".$imageId."', '".$vote."', '".$now."'";
+        $insertQuery = "INSERT INTO votes (id, user_id, image_id, vote, votedate) VALUES ('' , '".$userId."', '".$imageId."', '".$vote."', '".$now."')";
         
        $recordVote = $dbQuery->query($insertQuery, "insert");
-        print $insertQuery;
-        return $recordVote; // contains a new vote id
+        //print $insertQuery;
+       return $recordVote; // contains a new vote id
+       print "Record Vote:".$recordVote;
         }
         
       public static function countVotes($id,$vote){

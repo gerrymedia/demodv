@@ -10,6 +10,7 @@
 
 use \View as View;
 use \Rating as Rating;
+use Image;
 
 class Controller {
    
@@ -25,12 +26,24 @@ class Controller {
         }
         
         // this method will pick a random image
-        public static function showSingleImage($id,$nextImage,$previousImage) {
+        public static function showSingleImage($id,$imageIdsList) {
             $dbQuery = new DBQuery();
             $singleImageQuery = "SELECT * FROM images WHERE id = ".$id." LIMIT 1"; 
             // we'll pass SQL query parameters to the DBQuery class' query() method
             $singleImage = $dbQuery->query($singleImageQuery,"single");
             
+            // we'll get the next item in the array after the current pointer in the $imageIdsArray
+            $nextImageToShow = new Image();
+            $nextImageId = $nextImageToShow->getImage($id,$imageIdsList,"next");
+            
+            $previousImageToShow = new Image();
+            $previousImageId = $previousImageToShow->getImage($id,$imageIdsList,"prev");
+            
+            // the previous button will show the last image in the array    
+            end($imageIdsArray); // move the internal pointer to the end of the array
+            $lastKey = key($imageIdsArray); // fetches the key of the element pointed to by the internal
+            $previousImageToShow_id = $imageIdsArray[$lastKey]; 
+
             /*
              * Count votes: We'll call a method in the Rating class
              */
@@ -52,8 +65,8 @@ class Controller {
             $view = new View('frontpage');
             // pass our data to the View template, asssigning to variables
             $view->displayAssign('singleImage', $singleImage);
-            $view->displayAssign('previousImageId', $previousImage);
-            $view->displayAssign('nextImageId', $nextImage);
+            $view->displayAssign('previousImageId', $previousImageId);
+            $view->displayAssign('nextImageId', $nextImageId);
             $view->displayAssign('votesUpPercentage', $votesUpPercentage);
             $view->displayAssign('votesDownPercentage', $votesDownPercentage);
         }

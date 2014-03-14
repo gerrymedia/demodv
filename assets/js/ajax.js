@@ -1,15 +1,27 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Jquery Ajax would is my targeted solution for the voting (the thumbs up and thumbs down) as it is more secure and elegant 
+ * instead of passing the votes by HTTP $_GET
+ * 
+ * The pseudo-code:
+ * 
+ * onClick of #btn-*
+ *  $.post(to our PHP controller)
+ *      data
+ *  
+ * on success
+ *      alert user with modal
+ *          "Thank you for voting
+ *      update the voting percentages
+ * 
+ * 
  */
-
+/*
 var imageId;
 var userId;
 var vote;
 
 $("#btn-thumbdown").click(function(){
-    alert("Your book is overdue.");
+    
     $.post("vote.php",
   {
     imageId:"1",
@@ -19,4 +31,4 @@ $("#btn-thumbdown").click(function(){
   function(data,status){
     alert("Data: " + data + "\nStatus: " + status);
   });
-});
+}); */
