@@ -14,3 +14,5 @@
     <button class="btn btn-default form-submit" id="edit-submit" name="op" value="Log in" type="submit">Log in</button>
     
 </form>
+
+<p>Code Tester Direct Access - <a href="login.php?do=direct">Click Here</a></p>

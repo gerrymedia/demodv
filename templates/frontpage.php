@@ -1,7 +1,7 @@
 <?php
 /* 
- * Frontpage template
- * 
+ * Frontpage template, used by the View class
+ *
  * 
  *  */
 
@@ -39,7 +39,7 @@
             <div class="nav" id="prev">
                 <div class="btn-nav-container">
                      <div class="btn-nav">
-                         <a href="/?v=no&previous=show" id="btn-prev"></a>
+                         <a href="/?v=no&img=<?php print $previousImageId; ?>" id="btn-prev"></a>
                       </div>
                 </div>
             </div>
@@ -55,21 +55,17 @@
                     <div class="voting-widget">
                         <div class="thumbs-up-votes">
                             <?php
-                                $totalVotes = $singleImage[0]['thumbs_up'] + $singleImage[0]['thumbs_down'];
-                                $votesUp = $singleImage[0]['thumbs_up']/$totalVotes;
-                                $votesUpPercentage = round($votesUp * 100);
                                 print $votesUpPercentage."%";
                             ?>
                         </div>
                         <div class="thumbs-up-button">
-                         <a href="/?v=1&id=<?php print $singleImage[0]['id']; ?>" id="btn-thumbup"></a>
+                         <a href="/?v=up&img=<?php print $singleImage[0]['id']; ?>" id="btn-thumbup"></a>
                         </div>
                         <div class="thumbs-down-button">
-                            <a href="/?v=0&id=<?php print $singleImage[0]['id']; ?>" id="btn-thumbdown"></a>
+                            <a href="/?v=down&img=<?php print $singleImage[0]['id']; ?>" id="btn-thumbdown"></a>
                         </div>
                         <div class="thumbs-down-votes">
                             <?php
-                                $votesDownPercentage = 100 - $votesUpPercentage; 
                                 print $votesDownPercentage."%";
                             ?>
                         </div>
@@ -81,7 +77,7 @@
             <div class="nav" id="next">
                  <div class="btn-nav-container">
                      <div class="btn-nav">
-                        <a href="/" id="btn-next"></a>
+                        <a href="/?v=no&img=<?php print $nextImageId; ?>" id="btn-next"></a>
                      </div>
                  </div>    
             </div>
@@ -89,11 +85,14 @@
         </div><!-- /#photo-display .container -->
 <?php
 
+// we might need json for Angular later (single page application)
 $json= json_encode($singleImage);
-print "<pre>";
-print_r($json);
-print "</pre>";
-echo "hello";
+
+//print "<pre>";
+//print_r($json);
+//print "</pre>";
+print "Next Image:".$nextImageId;
+print "Previous Image:".$previousImageId;
 ?>
     </div><!-- /photo-display -->
 </div><!-- /container -->

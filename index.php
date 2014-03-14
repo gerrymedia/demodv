@@ -1,18 +1,18 @@
 <?php
+/*
+ * This is a coding test for DailyVoice
+ * completed by Gerry Lacuarta gerrymedia@gmail.com
+ * index.php 
+ */
+
 error_reporting(E_ERROR | E_PARSE);
 session_start();
-$_SESSION['userId'] = 1;
         
 if(@$_SESSION['auth']!= "yes") {
     header("Location: login.php");
 }
 
 $_SESSION['currentShownImage'];
-/*
- * This is a coding test for DailyVoice
- * completed by Gerry Lacuarta gerrymedia@gmail.com
- * index.php 
- */
 
 use \Controller as Controller;
 use \Image as Image;
@@ -31,74 +31,111 @@ require_once 'includes/config.inc';
 /*
  * Let's assemble the frontpage
  */
-// on the frontpage, we'll show a random image from the database
-// instead of making an expensive RAND() call in MYSQL, we'll generate a random number in PHP 
+// on the frontpage, we'll display  the first image from the the database
 
-// We'll call a static function from our custom Controller class and we'll receive an array of images
-$allImages = Controller::getImages();
+// We'll call a static function in our custom Controller class and we'll receive an array of images
+$allImages = Controller::getImages(); // this methods makes a DB query
 
-// Let's get an array of all second level keys in $images
+// Let's get an array of only image id's
+$imageIds = Image::getIds($allImages); // this method does array manipulations
 
-$images = new Image();
-$ids = $images->getIds($allImages);
-//print_r($ids);
-// Count the total members in the array, our images
-$imageCount = count($allImages);
-$maxArrayKey = $imageCount - 1;
-// Pick a random array element, so we need to generate a random number from zero to the key of last item in the array
-$randomKey = rand(0,$maxArrayKey);
-while($randomKey == $_SESSION['currentShownImage']) { $randomKey = rand(0,$maxArrayKey); }
-//debug: print $randomKey;
-// Get the ID of the image associated with our randomKey
-$randomImageId = $allImages[$randomKey]['id'];
+/*
+ * We are going to reference $imageIds multiple times so let's assign its values 
+ * to another variable so we don't invoke the method Image::getIds unnecessarily
+ *  */
+$imageIdsArray = $imageIds;
 
+// assign the first element of the array to a semantic variable name
+$firstImagefromDB = $imageIdsArray[0];
 
-// debug: print $randomImageId;
+// we'll get the next item in the array after the current pointer in the $imageIdsArray
+$nextImageToShow_id = next($imageIdsArray);
 
-// Let's save this image ID in the current session so the user does not see it on the next display (navigation or thumbs vote)
-$_SESSION['currentShownImage'] = $randomImageId;
-
-// the following acts as a pseudo router when buttons are clicked
+// the previous button will show the last image in the array    
+end($imageIdsArray); // move the internal pointer to the end of the array
+$lastKey = key($imageIdsArray); // fetches the key of the element pointed to by the internal
+$previousImageToShow_id = $imageIdsArray[$lastKey]; 
+ 
+/*
+ * The following conditional block acts as a pseudo router when buttons are clicked
+ */
 
 if($_GET['v']) {
 
     switch ($_GET['v']) {
-        case "0":
-            
-            $vote = "down";
-            //We'll show another random image
-    Controller::showSingleImage($randomImageId);
                 
-            break;
-        
-        case "1":
+        case "no":  // there's no vote, just a click on the navigation buttons
             
-            $vote = "up";
-            //We'll show another random image
-    Controller::showSingleImage($randomImageId);
-
-            break;
-        
-        case "no":
+            // We also receive an img query string in the URL
+            $imageToShow_id = $_GET['img'];
             
-             Controller::showSingleImage($_SESSION['currentShownImage']);
+            // We need to generate the imageIds for the next and previous button
+            // We'll pass these id's to our view via the Controller object
+            // We'll do this by walking through the array, until we find the pointer of the current image
+            // *while (current($imageIdsArray) !== $imageToShow_id) next($imageIdsArray);
+            // Then we can get the next image (id)
+             // * $nextImageToShow_id = next($imageIdsArray);
+             // *print $nextImageToShow_id;
+             // We'll walk again through the array
+              //* while (current($imageIdsArray) !== $imageToShow_id) next($imageIdsArray);
+            // Then we can get the previous image (id)
+             //* $previousImageToShow_id = prev($imageIdsArray);
+             //* print $previousImageToShow_id;
+             
+             $nextImageToShow_id = 1;
+             $previousImageToShow_id = 2;
+            
+            Controller::showSingleImage($imageToShow_id,$nextImageToShow_id,$previousImageToShow_id);
 
             break;
 
         default:
+            
+            if(!isset($_GET['img'])) { 
+                // we expect an img id in the URL, if missing, show an error page
+                Controller::showError("Image not found!");                
+            }
+            
+            // Check if user has already voted; if true, then show a message    
+            $duplicate = Rating::checkDuplicate($_SESSION['userId'], $_GET['img']);
+            
+            if($duplicate === true ) {
+                 // User has already voted on this image, let's show a message
+                print "You cannot vote on this image";
+            } else { // no duplicate found..
+                //let's record the vote, passing imageId, userId and the vote
+                
+                $vote = $_GET['v'];
+                              
+                $rating = new Rating();
+                $voting = $rating->recordVote($_GET['img'], $_SESSION['userId'], $vote);
+                if($voting > 0) {
+                    // vote was successfully recorded; we can the next image
+                    Controller::showSingleImage($nextImageToShow_id);
+                }
+            }
+            
             break;
     }
-
-    $rating = new Rating();
-    // in production we need to filter GET values
-    $idImageRated =  $_GET['id'];
-    $previousImage = $idImageRated;
-    $recordVote = $rating->recordVote($idImageRated, $_SESSION['userId'], $vote);
     
     
-            
-} else {
-    
-    // we'll show the first random image
-    Controller::showSingleImage($randomImageId);
+           
+} else { 
+    // If there are no query strings, we'll show the default frontpage
+    // we'll show the first image from the DB, on first page load
+    Controller::showSingleImage($firstImagefromDB,$nextImageToShow_id,$previousImageToShow_id);
 }
+
+/*
+ * Debugging Information
+ */
+
+print "<p>User ID: ".$_SESSION['userId'];
+
+print "<pre>";
+print_r($imageIds);
+print "</pre>";
+print "Key:". key($imageIds);
+
+print "Next Image to Show:".$nextImageToShow_id;
+print "Previous Image to Show:".$previousImageToShow_id;

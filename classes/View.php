@@ -24,10 +24,10 @@ class View {
         if (file_exists($template)) {
             $this->render = $template;
         } else {
-            throw new customException('Template file ' . $template . ' not found!');
+            throw new FileNotFoundException('Template file ' . $template . ' not found!');
         }
     }
-    catch (customException $e) {
+    catch (FileNotFoundException $e) {
         echo $e->errorMessage();
     }
 }

@@ -42,43 +42,52 @@ class DBQuery {
       public function query($query,$mode){
           
           // let's make a connection to the DB
-          $dbConnection = $this->connect();
+          $dbLink = $this->connect();
           // let's pass the query
-          $result = $dbConnection->query($query);
           
+          if($mode == "insert") {
+              $result = $dbLink->prepare($query);
+          } else {
+              $result = $dbLink->query($query);
+          }
+          
+          if(!$result){
+                die('There was an error running the query [' . $dbLink->error . ']');
+            }
+                   
           // in production we should use an exception for db connection error
           
           // Let's close the connection
-          mysqli_close($dbConnection);
+         $dbLink->close;
           
           // we need customize the returned value based on mysql output
           switch ($mode) {
               case "single": //a query expecting a single row of result
                   
                 $array_result = array();
+                //print_r($result);  
                 while($row = $result->fetch_array(MYSQLI_ASSOC)) {
                 $array_result[] = $row;
                 }
                 
-                 $queryresult =  $array_result;
+                $queryresult =  $array_result;
                 
-                  break;
+                break;
                   
-               case "count row":
-                  print "Count row";
-                  print_r($result);
-                  //$numberOfRows = mysql_num_rows($result);
-                  $numberOfRows = 1;
-                  print "Rows found: ".$numberOfRows; 
-                  if ($numberOfRows > 0) // result found
-                  {
-                   $queryresult = $numberOfRows;
-                  }
+                case "count":
+                
+                $num_rows = $result->num_rows;
+                
+                //print_r($num_rows);
 
+                 $queryresult = $num_rows;
+                
                   break;
               
               case "insert":
-
+                  
+                  $queryresult  = $mysqli->insert_id; // the vote ID
+                  
 
                   break;
               
@@ -88,6 +97,8 @@ class DBQuery {
                   break;
               
               case "multiple":  // a query expecting multiple rows of result
+                
+                
                   
                 $array_result = array();
                 while($row = $result->fetch_array(MYSQLI_ASSOC)) {

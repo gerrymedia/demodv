@@ -31,15 +31,40 @@ require_once 'includes/config.inc';
     <div class="login-container">
         <?php 
        if(@$_SESSION['auth'] != "yes") {
-           if($_GET['do'] == "login"){
+           
+           switch ($_GET['do']) {
+               case "login":
+                    
                print $_POST['username'];
                print $_POST['password'];
                $user = new User();
                // for this demo we'll just accept raw input from the form; in production we need to sanitize user input
                $checkUser = $user->loginUser($_POST['username'], $_POST['password']);
-           } else {
-               include_once INCLUDES_DIR."/login_form.inc";
+               
+               break;
+           
+               case "direct":
+                   
+                   include_once INCLUDES_DIR."/_direct_links.inc";
+                   
+                   break;
+               
+                case "DA":
+                   // direct access for devs
+                   $_SESSION['auth'] = "yes";
+                   $_SESSION['userId'] = $_GET['u'];
+                        
+                   include_once INCLUDES_DIR."/_direct_links.inc";
+                   
+                   break;
+
+               default:
+                   
+                   include_once INCLUDES_DIR."/login_form.inc";
+                   
+                   break;
            }
+           
         } else {
             include_once INCLUDES_DIR."/member_welcome.inc";
         }
