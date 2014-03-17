@@ -1,4 +1,5 @@
-Code Test for DV
+Branch: feat/ajaxy
+New Feature being added: Ajax voting
 ========================
 Author: Gerald "Gerry" Lacuarta
 gerrymedia@gmail.com
