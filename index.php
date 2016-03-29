@@ -1,7 +1,6 @@
 <?php
 /*
- * This is a coding test for DailyVoice
- * completed by Gerry Lacuarta gerrymedia@gmail.com
+ * 
  * index.php 
  */
 
