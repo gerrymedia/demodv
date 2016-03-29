@@ -1,5 +1,3 @@
-Code Test for DV
-========================
 Author: Gerald "Gerry" Lacuarta
 gerrymedia@gmail.com
 
